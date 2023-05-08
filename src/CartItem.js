@@ -2,38 +2,15 @@ import React from 'react';
 
 class CartItem extends React.Component {
   
-    // this.increaseQuantity = this.increaseQuantity.bind(this);
-  
-  increaseQuantity = () => {
-    //console.log('this', this.state);
-    //setState form 1
-    // this.setState({
-    //   qty: this.state.qty + 1
-    // });
-
-    //setState form 2
-    this.setState((prevState) => {
-      return {
-        qty: prevState.qty+1
-      }
-    }, () => {
-      console.log('this.state', this.state);
-    });
-  }
-  decreaseQuantity = () => {
-    const{qty}=this.state;
-    if(qty === 0){
-      return;
-    }
-    this.setState((prevState) => {
-      return {
-        qty: prevState.qty-1
-      }
-    });
-  }
+   
   render () {
     console.log('this.props',this.props);
     const { price, title, qty } = this.props.product;
+    const {product,
+       onIncreaseQuantity, 
+       onDecreaseQuantity,
+       onDeleteProduct
+      }= this.props;
     return (
       <div className="cart-item">
         <div className="left-block">
@@ -49,18 +26,19 @@ class CartItem extends React.Component {
               alt="increase"
               className="action-icons"
               src="https://cdn3.iconfinder.com/data/icons/feather-5/24/plus-circle-64.png"
-              onClick={this.increaseQuantity}
+              onClick={() => onIncreaseQuantity(product)}
             />
             <img
               alt="decrease"
               className="action-icons"
               src="https://cdn3.iconfinder.com/data/icons/feather-5/24/minus-circle-64.png"
-              onClick={this.decreaseQuantity}
+              onClick={() => onDecreaseQuantity(product)}
             />
             <img
               alt="delete"
               className="action-icons"
               src="https://cdn2.iconfinder.com/data/icons/user-interface-line-38/24/Untitled-5-16-64.png"
+              onClick={() => onDeleteProduct(product.id)}
             />
           </div>
         </div>
